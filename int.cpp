@@ -17,7 +17,7 @@ int Int::getIntValue() const
 	return number_;
 }
 
-void Int::print()
+void Int::print() const
 {
 	std::cout << number_;
 }

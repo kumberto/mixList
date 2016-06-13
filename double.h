@@ -8,5 +8,5 @@ class Double: public ObjectList {
 		Double(double number);
 		~Double();
 		double getDoubleValue() const;
-		void print();
+		void print() const;
 };

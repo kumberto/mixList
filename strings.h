@@ -10,5 +10,5 @@ class String : public ObjectList {
 		String(std::string str);
 		~String();
 		std::string getStringValue() const;
-		void print();
+		void print() const;
 };

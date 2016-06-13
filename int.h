@@ -9,5 +9,5 @@ class Int : public ObjectList
 		Int(int number);
 		~Int();
 		int getIntValue() const;
-		void print();
+		void print() const;
 };

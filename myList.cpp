@@ -12,17 +12,18 @@ List::List()
 
 List::List(const List & list)
 {
-	List *temp = new List();
-	temp->head = list.head;
-	temp->tail = list.tail;
+	this->head = list.head;
+	this->tail = list.tail;
 }
 
-List * List::operator=(const List & list)
+List& List::operator=(const List & list)
 {
-	List *temp = new List();
-	temp->head = list.head;
-	temp->tail = list.tail;
-	return temp;
+	if (this != &list)
+	{
+		this->head = list.head;
+		this->tail = list.tail;
+	}
+	return *this;
 }
 
 
@@ -31,7 +32,6 @@ List::~List()
 	while(head)
 	{
 		Node *temp = head->next;
-		delete head->object;
 		delete head;
 		head = temp;
 	}
@@ -56,6 +56,30 @@ void List::add_element(ObjectList *object)
 		tail = temp;
 	}
 }
+void List::remove_element(ObjectList * object)
+{
+	Node *temp = head;
+	while (temp->next != nullptr)
+	{
+		if (temp->object == object)
+		{
+			if (temp->next != nullptr)
+				temp->next->prev = temp->prev;
+			else
+				tail = tail->prev;
+			if (temp->prev != nullptr)
+				temp->prev->next = temp->next;
+			else
+				head = head->next;
+			delete temp;
+		}
+		else
+		{
+			temp = temp->next;
+		}
+	}
+}
+
 void List::add(int number)
 {
 	Int* intObject = new Int(number);
@@ -73,84 +97,20 @@ void List::add(std::string str)
 }
 void List::remove(int number)
 {
-	Node* temp = head;
-	
-	while (temp != nullptr)
-	{
-		if (temp->object->getIntValue() == number)
-		{
-			if (temp->next != nullptr)
-				temp->next->prev = temp->prev;
-			else
-				tail = tail->prev;
-			if (temp->prev != nullptr)
-				temp->prev->next = temp->next;
-			else
-				head = head->next;
-			delete temp->object;
-			temp->object = nullptr;
-			delete temp;
-			temp = nullptr;
-		}
-		else
-		{
-			temp = temp->next;
-		}
-
-	}
+	Int* intObject = new Int(number);
+	remove_element(intObject);
 }
 
 void List::remove(double number)
 {
-	Node* temp = head;
-
-	while (temp != nullptr)
-	{
-		if (temp->object->getDoubleValue() == number)
-		{
-			if (temp->next != nullptr)
-				temp->next->prev = temp->prev;
-			else
-				tail = tail->prev;
-			if (temp->prev != nullptr)
-				temp->prev->next = temp->next;
-			else
-				head = head->next;
-			delete temp->object;
-			delete temp;
-			temp = nullptr;
-		}
-		else
-		{
-			temp = temp->next;
-		}
-	}
+	Double* doubleObject = new Double(number);
+	remove_element(doubleObject);
 }
 
 void List::remove(std::string str)
 {
-	Node* temp = head;
-	while (temp != nullptr)
-	{
-		if (temp->object->getStringValue() == str)
-		{
-			if (temp->next != nullptr)
-				temp->next->prev = temp->prev;
-			else
-				tail = tail->prev;
-			if (temp->prev != nullptr)
-				temp->prev->next = temp->next;
-			else
-				head = head->next;
-			delete temp->object;
-			delete temp;
-			temp = nullptr;
-		}
-		else
-		{
-			temp = temp->next;
-		}
-	}
+	String* stringObject = new String(str);
+	add_element(stringObject);
 }
 
 ObjectList* List::getObject(int i) const
@@ -177,8 +137,6 @@ int List::size() const
 		amount += 1;
 		temp = temp->next;
 	}
-	temp = nullptr;
-	delete temp;
 	return amount;
 }
 
@@ -193,4 +151,9 @@ void List::printAll() const
 		buffer = buffer->next;
 	}
 	std::cout << std::endl;
+}
+
+Node::~Node()
+{
+	delete object;
 }

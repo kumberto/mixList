@@ -18,7 +18,7 @@ double Double::getDoubleValue() const
 	return number_;
 }
 
-void Double::print()
+void Double::print() const
 {
 	std::cout << number_;
 }

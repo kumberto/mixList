@@ -17,7 +17,7 @@ std::string String::getStringValue() const
 {
 	return str_;
 }
-void String::print()
+void String::print() const
 {
 	std::cout << str_;
 }

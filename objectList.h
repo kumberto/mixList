@@ -7,5 +7,5 @@ class ObjectList {
 		virtual int getIntValue() const;
 		virtual double getDoubleValue()const;
 		virtual std::string getStringValue() const;
-		virtual void print() = 0;
+		virtual void print() const = 0;
 };
