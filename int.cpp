@@ -1,5 +1,7 @@
 #include <iostream>
+#include <sstream>
 #include "int.h"
+
 
 
 Int::Int( int number)
@@ -20,4 +22,18 @@ int Int::getIntValue() const
 void Int::print() const
 {
 	std::cout << number_;
+}
+
+std::string Int::type() const
+{
+	return "int";
+}
+
+std::string Int::ToString()
+{
+	std::ostringstream ost;
+	ost << number_;
+	std::string s_num = ost.str();
+	std::cout << s_num << std::endl;
+	return s_num;
 }

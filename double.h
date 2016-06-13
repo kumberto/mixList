@@ -9,4 +9,6 @@ class Double: public ObjectList {
 		~Double();
 		double getDoubleValue() const;
 		void print() const;
+		std::string type() const;
+		std::string ToString();
 };

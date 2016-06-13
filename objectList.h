@@ -8,4 +8,6 @@ class ObjectList {
 		virtual double getDoubleValue()const;
 		virtual std::string getStringValue() const;
 		virtual void print() const = 0;
+		virtual std::string type() const = 0;
+		virtual std::string ToString();
 };

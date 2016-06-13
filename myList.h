@@ -25,6 +25,7 @@ class List{
 		void remove(int number);
 		void remove(double number);
 		void remove(std::string str);
+		void remove_all();
 		ObjectList* getObject(int i) const;
 		int size() const;
 		void printAll() const;

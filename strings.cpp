@@ -21,3 +21,8 @@ void String::print() const
 {
 	std::cout << str_;
 }
+
+std::string String::type() const
+{
+	return "string";
+}

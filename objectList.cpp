@@ -24,3 +24,10 @@ std::string ObjectList::getStringValue() const
 {
 	return std::string();
 }
+
+std::string ObjectList::ToString()
+{
+	return std::string();
+}
+
+

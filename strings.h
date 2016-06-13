@@ -11,4 +11,5 @@ class String : public ObjectList {
 		~String();
 		std::string getStringValue() const;
 		void print() const;
+		std::string type() const;
 };

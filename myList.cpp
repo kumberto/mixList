@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <functional>
 #include "mylist.h"
 #include "int.h"
 #include "double.h"
@@ -56,12 +57,13 @@ void List::add_element(ObjectList *object)
 		tail = temp;
 	}
 }
+
 void List::remove_element(ObjectList * object)
 {
 	Node *temp = head;
-	while (temp->next != nullptr)
+	while (temp != nullptr)
 	{
-		if (temp->object == object)
+		if (temp->object->ToString() == object->ToString() && temp->object->type() == object->type())
 		{
 			if (temp->next != nullptr)
 				temp->next->prev = temp->prev;
@@ -72,6 +74,7 @@ void List::remove_element(ObjectList * object)
 			else
 				head = head->next;
 			delete temp;
+			break;
 		}
 		else
 		{
@@ -85,16 +88,19 @@ void List::add(int number)
 	Int* intObject = new Int(number);
 	add_element(intObject);
 }
+
 void List::add(double number)
 {
 	Double* doubleObject = new Double(number);
 	add_element(doubleObject);
 }
+
 void List::add(std::string str)
 {
 	String* stringObject = new String(str);
 	add_element(stringObject);
 }
+
 void List::remove(int number)
 {
 	Int* intObject = new Int(number);
@@ -111,6 +117,15 @@ void List::remove(std::string str)
 {
 	String* stringObject = new String(str);
 	add_element(stringObject);
+}
+
+void List::remove_all()
+{
+
+	while(head != nullptr)
+	{
+		remove_element(head->object);
+	}
 }
 
 ObjectList* List::getObject(int i) const

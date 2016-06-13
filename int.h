@@ -10,4 +10,6 @@ class Int : public ObjectList
 		~Int();
 		int getIntValue() const;
 		void print() const;
+		std::string type() const;
+		std::string ToString();
 };
