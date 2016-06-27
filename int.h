@@ -5,6 +5,8 @@ class Int : public ObjectList
 {
 	private:
 		int number_;
+		Int(const Int&);
+		Int& operator=(const Int&);
 	public:
 		Int(int number);
 		~Int();

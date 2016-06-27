@@ -4,6 +4,8 @@
 class Double: public ObjectList {
 	private:
 		double number_;
+		Double(const Double&);
+		Double& operator=(const Double&);
 	public:
 		Double(double number);
 		~Double();

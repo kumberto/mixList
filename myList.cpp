@@ -19,11 +19,10 @@ List::List(const List & list)
 
 List& List::operator=(const List & list)
 {
-	if (this != &list)
-	{
-		this->head = list.head;
-		this->tail = list.tail;
-	}
+	List *ptrList = this;
+	this->head = list.head;
+	this->tail = list.tail;
+	delete ptrList;
 	return *this;
 }
 
@@ -32,53 +31,53 @@ List::~List()
 {
 	while(head)
 	{
-		Node *temp = head->next;
+		Node *ptrNode = head->next;
 		delete head;
-		head = temp;
+		head = ptrNode;
 	}
 }
 
 void List::add_element(ObjectList *object)
 {
-	Node *temp = new Node;
-	temp->next = NULL;
-	temp->object = object;
+	Node *ptrNode = new Node;
+	ptrNode->next = NULL;
+	ptrNode->object = object;
 	
 	if ( head != NULL )
 	{
-		temp->prev = tail;
-		tail->next = temp;
-		tail = temp;
+		ptrNode->prev = tail;
+		tail->next = ptrNode;
+		tail = ptrNode;
 	}
 	else
 	{
-		temp->prev = NULL;
-		head = temp;
-		tail = temp;
+		ptrNode->prev = NULL;
+		head = ptrNode;
+		tail = ptrNode;
 	}
 }
 
-void List::remove_element(ObjectList * object)
+void List::removeElement(ObjectList * object)
 {
-	Node *temp = head;
-	while (temp != nullptr)
+	Node *ptrNode = head;
+	while (ptrNode != nullptr)
 	{
-		if (temp->object->ToString() == object->ToString() && temp->object->type() == object->type())
+		if (ptrNode->object->ToString() == object->ToString() && ptrNode->object->type() == object->type())
 		{
-			if (temp->next != nullptr)
-				temp->next->prev = temp->prev;
+			if (ptrNode->next != nullptr)
+				ptrNode->next->prev = ptrNode->prev;
 			else
 				tail = tail->prev;
-			if (temp->prev != nullptr)
-				temp->prev->next = temp->next;
+			if (ptrNode->prev != nullptr)
+				ptrNode->prev->next = ptrNode->next;
 			else
 				head = head->next;
-			delete temp;
+			delete ptrNode;
 			break;
 		}
 		else
 		{
-			temp = temp->next;
+			ptrNode = ptrNode->next;
 		}
 	}
 }
@@ -104,13 +103,13 @@ void List::add(std::string str)
 void List::remove(int number)
 {
 	Int* intObject = new Int(number);
-	remove_element(intObject);
+	removeElement(intObject);
 }
 
 void List::remove(double number)
 {
 	Double* doubleObject = new Double(number);
-	remove_element(doubleObject);
+	removeElement(doubleObject);
 }
 
 void List::remove(std::string str)
@@ -119,26 +118,34 @@ void List::remove(std::string str)
 	add_element(stringObject);
 }
 
-void List::remove_all()
+void List::removeAll()
 {
 
 	while(head != nullptr)
 	{
-		remove_element(head->object);
+		removeElement(head->object);
 	}
+}
+
+void List::popBack()
+{
+	Node *ptrNode = tail;
+	tail = tail->prev;
+	tail->next = nullptr;
+	delete ptrNode;
 }
 
 ObjectList* List::getObject(int i) const
 {
 	if ( size() >= i )
 	{
-		Node *temp = head;
+		Node *ptrNode = head;
 		while (i > 1)
 		{
 			i -= 1;
-			temp = temp->next;
+			ptrNode = ptrNode->next;
 		}
-		return temp->object;
+		return ptrNode->object;
 	}
 	return nullptr;
 }
@@ -146,29 +153,48 @@ ObjectList* List::getObject(int i) const
 int List::size() const
 {
 	int amount = 0;
-	Node* temp = head;
-	while (temp != nullptr)
+	Node* ptrNode = head;
+	while (ptrNode != nullptr)
 	{
 		amount += 1;
-		temp = temp->next;
+		ptrNode = ptrNode->next;
 	}
 	return amount;
 }
 
 void List::printAll() const
 {
-	Node *buffer = head;
-	std::cout << std::endl;
-	while( buffer != NULL )
+	Node *ptrNode = head;
+	while( ptrNode != NULL )
 	{
-		buffer->object->print();
+		ptrNode->object->print();
 		std::cout << " ";
-		buffer = buffer->next;
+		ptrNode = ptrNode->next;
 	}
-	std::cout << std::endl;
+}
+
+Node::Node()
+{
 }
 
 Node::~Node()
 {
 	delete object;
+}
+
+Node::Node(const Node & other)
+{
+	this->next = other.next;
+	this->prev = other.prev;
+	this->object = other.object;
+}
+
+Node & Node::operator=(const Node & other)
+{
+	Node *ptrNode = this;
+	this->next = other.next;
+	this->prev = other.prev;
+	this->object = other.object;
+	delete ptrNode;
+	return *this;
 }

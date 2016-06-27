@@ -2,6 +2,7 @@
 #include <sstream>
 #include "double.h"
 
+
 Double::Double(double number)
 :number_(number)
 ,ObjectList()

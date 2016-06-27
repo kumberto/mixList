@@ -6,6 +6,8 @@
 class String : public ObjectList {
 	private:
 		std::string str_;
+		String(const String&);
+		String& operator=(const String&);
 	public:
 		String(std::string str);
 		~String();

@@ -3,7 +3,6 @@
 #include "int.h"
 
 
-
 Int::Int( int number)
 :number_(number)
 , ObjectList()

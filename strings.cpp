@@ -1,7 +1,6 @@
 #include <iostream>
 #include "strings.h"
 
-
 String::String(std::string str)
 : str_(str)
 ,ObjectList()
