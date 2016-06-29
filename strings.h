@@ -2,7 +2,6 @@
 #include <string>
 #include "objectList.h"
 
-
 class String : public ObjectList {
 	private:
 		std::string str_;

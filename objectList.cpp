@@ -5,6 +5,7 @@ ObjectList::ObjectList()
 {
 	std::cout << "ObjectList Constructor" << std::endl;
 }
+
 ObjectList::~ObjectList()
 {
 	std::cout << "ObjectList destructir" << std::endl;

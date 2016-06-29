@@ -11,6 +11,7 @@ struct Node{
 	Node(const Node& other);
 	Node& operator=(const Node& other);
 };
+
 class List{
 	private:
 		Node *head;

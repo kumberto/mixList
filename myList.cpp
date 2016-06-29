@@ -13,16 +13,48 @@ List::List()
 
 List::List(const List & list)
 {
-	this->head = list.head;
-	this->tail = list.tail;
+	Node *ptrNode = list.head;
+	while (ptrNode != nullptr)
+	{
+		if (ptrNode->object->type() == "int")
+		{
+			add(ptrNode->object->getIntValue());
+		}
+		else if (ptrNode->object->type() == "double")
+		{
+			add(ptrNode->object->getDoubleValue());
+		}
+		else
+		{
+			add(ptrNode->object->getStringValue());
+		}
+		ptrNode = ptrNode->next;
+	}
 }
 
 List& List::operator=(const List & list)
 {
-	List *ptrList = this;
-	this->head = list.head;
-	this->tail = list.tail;
-	delete ptrList;
+	if (this == &list) return *this;
+	
+	removeAll();
+
+	Node *ptrNode = list.head;
+	while (ptrNode != nullptr)
+	{
+		if (ptrNode->object->type() == "int")
+		{
+			add(ptrNode->object->getIntValue());
+		}
+		else if (ptrNode->object->type() == "double")
+		{
+			add(ptrNode->object->getDoubleValue());
+		}
+		else
+		{
+			add(ptrNode->object->getStringValue());
+		}
+		ptrNode = ptrNode->next;
+	}
 	return *this;
 }
 
@@ -120,7 +152,6 @@ void List::remove(std::string str)
 
 void List::removeAll()
 {
-
 	while(head != nullptr)
 	{
 		removeElement(head->object);
@@ -174,8 +205,7 @@ void List::printAll() const
 }
 
 Node::Node()
-{
-}
+{}
 
 Node::~Node()
 {
